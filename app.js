@@ -1,7 +1,6 @@
 'use strict';
 var acc = [0, 0]
 var acc_020 = 0;
-var acc_050 = 0;
 
 var Transport = require('azure-iot-device-mqtt').Mqtt;
 var Client = require('azure-iot-device').ModuleClient;
@@ -36,8 +35,7 @@ function accumulate(item, index) {
     acc[0]++;
     acc_020 = acc_020 + item.Value.Value
   } else {
-    acc[1]++;
-    acc_050 = acc_050 + item.Value.Value
+    // do nothing
   }
 }
 
@@ -53,10 +51,6 @@ function filterMessage(client, inputName, msg) {
     let formattedMsg = [{
         "NodeId": "ns=1;s=020",
         "Value": acc_020 / acc[0]
-      },
-      {
-        "NodeId": "ns=1;s=050",
-        "Value": acc_050 / acc[1]
       }
     ];
     console.log(formattedMsg);
